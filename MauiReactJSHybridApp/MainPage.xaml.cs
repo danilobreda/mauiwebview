@@ -13,6 +13,7 @@ namespace MauiReactJSHybridApp
             _todoDataStore = new TodoDataStore();
             _todoDataStore.TaskDataChanged += OnTodoDataChanged;
 
+            
             myHybridWebView.JSInvokeTarget = new TodoJSInvokeTarget(this, _todoDataStore);
 
             BindingContext = this;
@@ -29,6 +30,9 @@ namespace MauiReactJSHybridApp
         {
             _ = await MainThread.InvokeOnMainThreadAsync(async () =>
                 await myHybridWebView.InvokeJsMethodAsync("globalSetData", tasks));
+
+
+            await myHybridWebView.InvokeJsMethodAsync("setIsNativeApp");
         }
 
         private sealed class TodoJSInvokeTarget

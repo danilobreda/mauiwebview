@@ -4,14 +4,6 @@ namespace HybridWebView
 {
     public partial class HybridWebView : WebView
     {
-        public string MainFile { get; set; }
-
-        /// <summary>
-        ///  The path within the app's "Raw" asset resources that contain the web app's contents. For example, if the
-        ///  files are located in "ProjectFolder/Resources/Raw/hybrid_root", then set this property to "hybrid_root".
-        /// </summary>
-        public string HybridAssetRoot { get; set; }
-
         /// <summary>
         /// The target object for JavaScript method invocations. When an "invoke" message is sent from JavaScript,
         /// the invoked method will be located on this object, and any specified parameters will be passed in.
@@ -23,6 +15,18 @@ namespace HybridWebView
         protected override void OnHandlerChanged()
         {
             base.OnHandlerChanged();
+
+            this.Cookies = new System.Net.CookieContainer();
+            this.Cookies.Add(new System.Net.Cookie()
+            {
+                Name = "vendasimplesapp",
+                Domain = HybridWebViewConfiguration.urlCookie,
+                //Port = HybridWebViewConfiguration.port,
+                Path = "/",
+                //Secure = HybridWebViewConfiguration.useHttps,
+                Expires = DateTime.Now.AddYears(1),
+                Value = Guid.NewGuid().ToString().Replace("-", "")
+            });
 
             InitializeHybridWebView();
         }
@@ -113,7 +117,7 @@ namespace HybridWebView
             public string MessageContent { get; set; }
         }
 
-        internal static async Task<string> GetAssetContentAsync(string assetPath)
+        /*internal static async Task<string> GetAssetContentAsync(string assetPath)
         {
             using var stream = await GetAssetStreamAsync(assetPath);
             if (stream == null)
@@ -134,6 +138,6 @@ namespace HybridWebView
                 return null;
             }
             return await FileSystem.OpenAppPackageFileAsync(assetPath);
-        }
+        }*/
     }
 }

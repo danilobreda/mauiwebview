@@ -14,7 +14,7 @@ namespace HybridWebView
             _handler = handler;
         }
 
-        public override WebResourceResponse ShouldInterceptRequest(AWebView view, IWebResourceRequest request)
+        /*public override WebResourceResponse ShouldInterceptRequest(AWebView view, IWebResourceRequest request)
         {
             if (new Uri(request.Url.ToString()) is Uri uri && HybridWebView.AppOriginUri.IsBaseOf(uri))
             {
@@ -86,6 +86,6 @@ namespace HybridWebView
         private protected static IDictionary<string, string> GetHeaders(string contentType) =>
             new Dictionary<string, string> {
                 { "Content-Type", contentType },
-            };
+            };*/
     }
 }

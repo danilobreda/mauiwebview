@@ -13,7 +13,7 @@ namespace HybridWebView
         {
             var config = new WKWebViewConfiguration();
             config.UserContentController.AddScriptMessageHandler(new WebViewScriptMessageHandler(MessageReceived), "webwindowinterop");
-            config.SetUrlSchemeHandler(new SchemeHandler(this), urlScheme: "app");
+            //config.SetUrlSchemeHandler(new SchemeHandler(this), urlScheme: "app");
 
             var platformView = new MauiWKWebView(RectangleF.Empty, this, config);
 
@@ -44,7 +44,7 @@ namespace HybridWebView
             }
         }
 
-        private class SchemeHandler : NSObject, IWKUrlSchemeHandler
+        /*private class SchemeHandler : NSObject, IWKUrlSchemeHandler
         {
             private readonly HybridWebViewHandler _webViewHandler;
 
@@ -123,6 +123,6 @@ namespace HybridWebView
             public void StopUrlSchemeTask(WKWebView webView, IWKUrlSchemeTask urlSchemeTask)
             {
             }
-        }
+        }*/
     }
 }

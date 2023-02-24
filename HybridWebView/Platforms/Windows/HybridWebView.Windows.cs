@@ -7,15 +7,11 @@ namespace HybridWebView
 {
     partial class HybridWebView
     {
-        // Using an IP address means that WebView2 doesn't wait for any DNS resolution,
-        // making it substantially faster. Note that this isn't real HTTP traffic, since
-        // we intercept all the requests within this origin.
-        private static readonly string AppHostAddress = "0.0.0.0";
-
         /// <summary>
         /// Gets the application's base URI. Defaults to <c>https://0.0.0.0/</c>
         /// </summary>
-        private static readonly string AppOrigin = $"https://{AppHostAddress}/";
+        /// 
+        private static readonly string AppOrigin = $"{HybridWebViewConfiguration.protocol}://{HybridWebViewConfiguration.url}/";
 
         private static readonly Uri AppOriginUri = new(AppOrigin);
 
@@ -26,18 +22,18 @@ namespace HybridWebView
             var wv2 = (Microsoft.UI.Xaml.Controls.WebView2)Handler.PlatformView;
             wv2.WebMessageReceived += Wv2_WebMessageReceived;
 
-            _coreWebView2Environment = await CoreWebView2Environment.CreateAsync();
+           _coreWebView2Environment = await CoreWebView2Environment.CreateAsync();
 
             await wv2.EnsureCoreWebView2Async();
 
             wv2.CoreWebView2.Settings.IsWebMessageEnabled = true;
-            wv2.CoreWebView2.AddWebResourceRequestedFilter($"{AppOrigin}*", CoreWebView2WebResourceContext.All);
-            wv2.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested;
+            //wv2.CoreWebView2.AddWebResourceRequestedFilter($"{AppOrigin}*", CoreWebView2WebResourceContext.All);
+            //wv2.CoreWebView2.WebResourceRequested += CoreWebView2_WebResourceRequested;
 
             wv2.Source = new Uri(AppOrigin);
         }
 
-        private async void CoreWebView2_WebResourceRequested(CoreWebView2 sender, CoreWebView2WebResourceRequestedEventArgs args)
+        /*private async void CoreWebView2_WebResourceRequested(CoreWebView2 sender, CoreWebView2WebResourceRequestedEventArgs args)
         {
             // Get a deferral object so that WebView2 knows there's some async stuff going on. We call Complete() at the end of this method.
             using var deferral = args.GetDeferral();
@@ -103,7 +99,7 @@ namespace HybridWebView
 
         private protected static string GetHeaderString(string contentType, int contentLength) =>
 $@"Content-Type: {contentType}
-Content-Length: {contentLength}";
+Content-Length: {contentLength}";*/
 
         private void Wv2_WebMessageReceived(Microsoft.UI.Xaml.Controls.WebView2 sender, CoreWebView2WebMessageReceivedEventArgs args)
         {

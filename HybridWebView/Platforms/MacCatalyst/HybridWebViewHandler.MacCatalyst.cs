@@ -1,8 +1,6 @@
 ﻿using Foundation;
 using Microsoft.Maui.Platform;
 using System.Drawing;
-using System.Globalization;
-using System.Runtime.Versioning;
 using WebKit;
 
 namespace HybridWebView
@@ -13,7 +11,7 @@ namespace HybridWebView
         {
             var config = new WKWebViewConfiguration();
             config.UserContentController.AddScriptMessageHandler(new WebViewScriptMessageHandler(MessageReceived), "webwindowinterop");
-            config.SetUrlSchemeHandler(new SchemeHandler(this), urlScheme: "app");
+            //config.SetUrlSchemeHandler(new SchemeHandler(this), urlScheme: "app");
 
             var platformView = new MauiWKWebView(RectangleF.Empty, this, config);
 
@@ -43,7 +41,7 @@ namespace HybridWebView
                 _messageReceivedAction(HybridWebView.AppOriginUri, ((NSString)message.Body).ToString());
             }
         }
-
+        /*
         private class SchemeHandler : NSObject, IWKUrlSchemeHandler
         {
             private readonly HybridWebViewHandler _webViewHandler;
@@ -123,6 +121,6 @@ namespace HybridWebView
             public void StopUrlSchemeTask(WKWebView webView, IWKUrlSchemeTask urlSchemeTask)
             {
             }
-        }
+        }*/
     }
 }
