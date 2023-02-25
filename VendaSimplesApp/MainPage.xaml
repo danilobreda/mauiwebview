@@ -6,6 +6,12 @@
 
     <Grid ColumnDefinitions="*" RowDefinitions="Auto,*">
 
+        <Button Grid.Column="2"
+                Text="Menu"
+                Clicked="OnInvokeJSMethod"
+                HorizontalOptions="Center"
+                Margin="5"  />
+
         <hwv:HybridWebView Grid.Row="1" x:Name="webView" />
     </Grid>
 

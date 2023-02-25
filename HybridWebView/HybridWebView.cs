@@ -16,18 +16,6 @@ namespace HybridWebView
         {
             base.OnHandlerChanged();
 
-            this.Cookies = new System.Net.CookieContainer();
-            this.Cookies.Add(new System.Net.Cookie()
-            {
-                Name = "vendasimplesapp",
-                Domain = HybridWebViewConfiguration.urlCookie,
-                //Port = HybridWebViewConfiguration.port,
-                Path = "/",
-                //Secure = HybridWebViewConfiguration.useHttps,
-                Expires = DateTime.Now.AddYears(1),
-                Value = Guid.NewGuid().ToString().Replace("-", "")
-            });
-
             InitializeHybridWebView();
         }
 
@@ -46,8 +34,8 @@ namespace HybridWebView
             {
                 throw new ArgumentException($"The method name cannot be null or empty.", nameof(methodName));
             }
-
-            return await EvaluateJavaScriptAsync($"{methodName}({(paramValues == null ? string.Empty : string.Join(", ", paramValues.Select(v => JsonSerializer.Serialize(v))))})");
+            string script  = $"{methodName}({(paramValues == null ? string.Empty : string.Join(", ", paramValues.Select(v => JsonSerializer.Serialize(v))))})";
+            return await EvaluateJavaScriptAsync(script);
         }
 
         /// <summary>
