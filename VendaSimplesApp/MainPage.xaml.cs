@@ -17,7 +17,7 @@ namespace VendaSimplesApp
         private async void LoginApp()
         {
             var json = """
-            {"access_token":"1950b61e555746dca385bea37f7e65bfbredas269542aa80bf4321b6ae29587df6fd7a","expires_in":1440,"created_date":"2023-02-25T03:19:58.7488814Z","expire_date":"2023-02-26T03:19:58.7488814Z"}
+            {"access_token":"b67a99c2d08a4837b1ed9a0935667357bredasf50c2bed2e3849fcad8caa46393a3284","expires_in":1440,"created_date":"2023-02-28T10:07:08.4864043Z","expire_date":"2023-03-01T10:07:08.4864043Z"}
             """;
 
             var base64 = Convert.ToBase64String(Encoding.ASCII.GetBytes(json));
@@ -36,6 +36,31 @@ namespace VendaSimplesApp
             public void StartLoadingMaui()
             {
                 _mainPage.LoginApp();
+            }
+
+            public void Logout()
+            {
+                Application.Current.Quit();
+            }
+
+            public void PrintPdf(string pdfBase64WithoutMimeType)
+            {
+
+            }
+
+            public void PrintHtml(string htmlDecoded)
+            {
+
+            }
+
+            public void DownloadFile(string url, string nomeArquivo)
+            {
+
+            }
+
+            public void SendWhatsapp(string url)
+            {
+
             }
         }
 
