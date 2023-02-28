@@ -60,7 +60,19 @@ namespace VendaSimplesApp
 
             public void SendWhatsapp(string url)
             {
-
+                try
+                {
+                    MainThread.BeginInvokeOnMainThread(async () =>
+                    {
+                        //url.Replace("https://", "whatsapp://");
+                        Uri uri = new Uri(url);
+                        await Launcher.TryOpenAsync(uri);
+                    });
+                }
+                catch (Exception ex)
+                {
+                    // An unexpected error occurred. No browser may be installed on the device.
+                }
             }
         }
 
